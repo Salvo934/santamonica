@@ -93,7 +93,7 @@
       }
 
       .main-nav a:hover {
-        color:  #f67280;
+        color: #f67280;
       }
 
       .hero {
@@ -328,6 +328,54 @@
       .gallery img:hover {
         transform: scale(1.05);
       }
+
+      .menu-toggle {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #333;
+      }
+
+      @media (max-width: 768px) {
+        .main-nav {
+          display: none;
+          position: absolute;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          background-color: #fff;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-nav.open {
+          display: block;
+        }
+
+        .nav-list {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .nav-list li {
+          border-bottom: 1px solid #eee;
+          text-align: center;
+          padding: 10px 0;
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+
+        .button {
+          display: inline-block;
+          margin: 10px auto;
+          background-color: var(--accent);
+          color: white;
+          padding: 10px 20px;
+          border-radius: 20px;
+          font-weight: bold;
+        }
+      }
     </style>
   </head>
   <body>
@@ -343,15 +391,20 @@
           />
           <h1>Asilo Santa Monica</h1>
         </a>
-        <nav class="main-nav">
+
+        <nav class="main-nav" id="main-nav">
           <ul class="nav-list">
             <li><a href="#chi-siamo">Chi Siamo</a></li>
             <li><a href="#servizi">Servizi</a></li>
             <li><a href="#galleria">Galleria</a></li>
             <li><a href="#contatti">Contatti</a></li>
-            <a href="iscrizione.html" class="button">Iscriviti ora</a>
+            <li><a href="iscrizione.html" class="button">Iscriviti ora</a></li>
           </ul>
         </nav>
+
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
       </div>
     </header>
 
@@ -471,7 +524,10 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 Asilo Santa Monica | Tutti i diritti riservati | Made by Savatore Bonavita</p>
+      <p>
+        &copy; 2025 Asilo Santa Monica | Tutti i diritti riservati | Made by
+        Savatore Bonavita
+      </p>
       <div class="social-icons">
         <a
           href="https://www.instagram.com/tuoprofilo"
@@ -523,6 +579,14 @@
       }
 
       setInterval(createBubble, 150);
+    </script>
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const mainNav = document.getElementById("main-nav");
+
+      menuToggle.addEventListener("click", () => {
+        mainNav.classList.toggle("open");
+      });
     </script>
   </body>
 </html>
