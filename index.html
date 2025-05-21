@@ -330,68 +330,44 @@
       }
 
       .menu-toggle {
-        display: none;
-        font-size: 1.8rem;
-        cursor: pointer;
-        color: #333;
-      }
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #333;
+}
 
-      @media (max-width: 768px) {
-        .main-nav {
-          display: none;
-          position: absolute;
-          top: 70px;
-          left: 0;
-          width: 100%;
-          background-color: #fff;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .main-nav.open {
-          display: block;
-        }
-
-        .nav-list {
-          flex-direction: column;
-          gap: 0;
-        }
-
-        .nav-list li {
-          border-bottom: 1px solid #eee;
-          text-align: center;
-          padding: 10px 0;
-        }
-
-        .menu-toggle {
-          display: block;
-        }
-
-        .button {
-          display: inline-block;
-          margin: 10px auto;
-          background-color: var(--accent);
-          color: white;
-          padding: 10px 20px;
-          border-radius: 20px;
-          font-weight: bold;
-        }
-      }
-
-     
-
-/* Mobile: sposta sotto il logo/menu */
+/* Responsive Navigation */
 @media (max-width: 768px) {
-  .phone-contact {
-    margin-top: 10px;
-    text-align: right;
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .header-container {
+  .main-nav.open {
+    display: block;
+  }
+
+  .nav-list {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    padding: 0;
+  }
+
+  .nav-list li {
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .menu-toggle {
+    display: block;
   }
 }
+
 
     </style>
   </head>
@@ -401,34 +377,28 @@
     <header>
       <div class="container header-container">
         <a href="#" class="logo-title">
-          <img
-            src="icona.jpg"
-            alt="Icona Asilo Nido Santa Monica"
-            class="logo"
-          />
+          <img src="icona.jpg" alt="Icona Asilo Nido Santa Monica" class="logo" />
           <h1>Asilo Santa Monica</h1>
         </a>
-
+    
+        <!-- NAVIGATION -->
         <nav class="main-nav" id="main-nav">
           <ul class="nav-list">
             <li><a href="#chi-siamo">Chi Siamo</a></li>
             <li><a href="#servizi">Servizi</a></li>
             <li><a href="#galleria">Galleria</a></li>
-            <li><a href="#contatti">Contattaci</a> 
-              <li><a href="iscrizione.html" class="button">Iscriviti ora</a></li>
-              </div>
-              
+            <li><a href="#contatti">Contattaci</a></li>
+            <li><a href="iscrizione.html" class="button">Iscriviti ora</a></li>
           </ul>
         </nav>
-
-       
-
+    
+        <!-- HAMBURGER ICON -->
         <div class="menu-toggle" id="menu-toggle">
           <i class="fas fa-bars"></i>
         </div>
       </div>
     </header>
-
+    
     <main>
       <section class="hero">
         <div class="hero-content">
@@ -601,13 +571,15 @@
 
       setInterval(createBubble, 150);
     </script>
-    <script>
-      const menuToggle = document.getElementById("menu-toggle");
-      const mainNav = document.getElementById("main-nav");
-
-      menuToggle.addEventListener("click", () => {
-        mainNav.classList.toggle("open");
-      });
-    </script>
+   
+   <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainNav = document.getElementById("main-nav");
+  
+    menuToggle.addEventListener("click", () => {
+      mainNav.classList.toggle("open");
+    });
+  </script>
+  
   </body>
 </html>
