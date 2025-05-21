@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iscrizione Asilo</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --accent: #ff8fab;
+        --accent-dark: #ff5e88;
+        --bg: linear-gradient(135deg, #fff0f6, #fce4ec);
+        --card: rgba(255, 255, 255, 0.9);
+        --text: #2c2c2c;
+        --success: #d4edda;
+        --error: #ff4d4f;
+        --radius: 1.5rem;
+      }
+
+      body {
+        font-family: "Quicksand", sans-serif;
+        background: var(--bg);
+        padding: 2rem;
+        color: var(--text);
+      }
+
+      section {
+        max-width: 880px;
+        margin: auto;
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 2rem;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(10px);
+      }
+
+      h2 {
+        text-align: center;
+        color: var(--accent-dark);
+        font-size: 2.4rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .description {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #555;
+      }
+
+      .step-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 2rem;
+      }
+
+      .step-indicator div {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ccc;
+        transition: background 0.3s;
+      }
+
+      .step-indicator .active {
+        background: var(--accent-dark);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      fieldset {
+        display: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      fieldset.active {
+        display: block;
+      }
+
+      legend {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--accent-dark);
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.95rem;
+      }
+
+      label.required::after {
+        content: "*";
+        color: var(--error);
+        margin-left: 4px;
+      }
+
+      input,
+      select,
+      textarea {
+        margin-top: 0.4rem;
+        padding: 0.8rem;
+        border-radius: 0.75rem;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--accent-dark);
+        outline: none;
+      }
+
+      .file-preview {
+        margin-top: 0.5rem;
+        max-height: 200px;
+        overflow: hidden;
+      }
+
+      .file-preview img,
+      .file-preview iframe {
+        width: 100%;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+      }
+
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .checkbox-group label {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+
+      button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.8rem;
+        border-radius: 2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background: var(--accent-dark);
+      }
+
+      .success-message {
+        display: none;
+        background: var(--success);
+        color: #2e7d32;
+        padding: 1rem;
+        border-radius: 1rem;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 1.5rem;
+      }
+
+      footer {
+        background: #fff0f6;
+        padding: 2rem 1rem;
+        text-align: center;
+        border-top: 2px solid #ffe0ea;
+        margin-top: 3rem;
+        font-size: 0.95rem;
+      }
+
+      .footer-container {
+        max-width: 800px;
+        margin: 0 auto;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .social-icons a {
+        color: #ff8fab;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #ff5e88;
+        transform: scale(1.2);
+      }
+
+      /*.home-button {
+        background: #ff8fab;
+        color: white;
+        padding: 0.6rem 1.4rem;
+        border-radius: 2rem;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      .home-button:hover {
+        background: #ff5e88;
+        transform: scale(1.05);
+      }*/
+
+      .home-button {
+        background: linear-gradient(135deg, #ff8fab, #ff5e88);
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(255, 105, 135, 0.3);
+        transition: all 0.25s ease;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .home-button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: skewX(-20deg);
+        transition: left 0.4s ease;
+      }
+
+      .home-button:hover::after {
+        left: 125%;
+      }
+
+      .home-button:hover {
+        transform: scale(1.04);
+        box-shadow: 0 5px 14px rgba(255, 105, 135, 0.4);
+      }
+
+      .home-button:focus-visible {
+        outline: 2px solid #ffc3d1;
+        outline-offset: 3px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .buttons {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h2>🧸 Iscrizione Asilo</h2>
+      <p class="description">
+        Completa tutti gli step per iscrivere il tuo bambino.
+      </p>
+
+      <div class="step-indicator">
+        <div class="step active"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+      </div>
+
+      <form id="multiStepForm" novalidate>
+        <!-- Step 1 -->
+        <fieldset class="active">
+          <legend>👶 Dati del bambino</legend>
+          <div class="grid">
+            <label class="required"
+              >Nome <input type="text" name="nome_bambino" required
+            /></label>
+            <label class="required"
+              >Cognome <input type="text" name="cognome_bambino" required
+            /></label>
+            <label class="required"
+              >Data di nascita <input type="date" name="data_nascita" required
+            /></label>
+            <label class="required"
+              >Luogo di nascita
+              <input type="text" name="luogo_nascita" required
+            /></label>
+          </div>
+          <div class="buttons">
+            <span></span>
+            <button type="button" class="next">Avanti</button>
+          </div>
+        </fieldset>
+
+        <!-- Step 2 -->
+        <fieldset>
+          <legend>👨‍👩‍👧 Genitore o tutore</legend>
+          <div class="grid">
+            <label class="required"
+              >Nome e Cognome <input type="text" name="nome_genitore" required
+            /></label>
+            <label class="required"
+              >Indirizzo <input type="text" name="indirizzo" required
+            /></label>
+            <label class="required"
+              >Telefono <input type="tel" name="telefono" required
+            /></label>
+            <label class="required"
+              >Email <input type="email" name="email" required
+            /></label>
+          </div>
+          <div class="buttons">
+            <button type="button" class="prev">Indietro</button>
+            <button type="button" class="next">Avanti</button>
+          </div>
+        </fieldset>
+
+        <!-- Step 3 -->
+        <fieldset>
+          <legend>📅 Dettagli iscrizione</legend>
+          <div class="grid">
+            <label class="required"
+              >Periodo
+              <select name="periodo" required>
+                <option value="">-- Seleziona --</option>
+                <option value="anno">Intero anno</option>
+                <option value="semestre">Semestre</option>
+              </select>
+            </label>
+            <label class="required"
+              >Orario
+              <select name="orario" required>
+                <option value="">-- Seleziona --</option>
+                <option value="tempo pieno">Tempo pieno</option>
+                <option value="part-time">Part-time</option>
+              </select>
+            </label>
+          </div>
+          <label>Note <textarea name="note" rows="3"></textarea></label>
+          <div class="buttons">
+            <button type="button" class="prev">Indietro</button>
+            <button type="button" class="next">Avanti</button>
+          </div>
+        </fieldset>
+
+        <!-- Step 4 -->
+        <fieldset>
+          <legend>📎 Documenti e consensi</legend>
+          <div class="grid">
+            <label
+              >Certificato di nascita
+              <input type="file" id="certificato" accept="image/*,.pdf" />
+              <div class="file-preview" id="preview_certificato"></div>
+            </label>
+            <label
+              >Documento genitore
+              <input type="file" id="documento" accept="image/*,.pdf" />
+              <div class="file-preview" id="preview_documento"></div>
+            </label>
+            <label
+              >Libretto vaccinazioni
+              <input type="file" id="vaccinazioni" accept="image/*,.pdf" />
+              <div class="file-preview" id="preview_vaccinazioni"></div>
+            </label>
+          </div>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" required /> Acconsento al trattamento dei
+              dati (GDPR)</label
+            >
+            <label
+              ><input type="checkbox" required /> Accetto il regolamento
+              dell’asilo</label
+            >
+          </div>
+          <div class="buttons">
+            <button type="button" class="prev">Indietro</button>
+            <button type="submit">📨 Invia iscrizione</button>
+          </div>
+        </fieldset>
+
+        <div class="success-message" id="successMsg">
+          ✅ Iscrizione inviata con successo!
+        </div>
+      </form>
+    </section>
+
+    <footer>
+      <div class="footer-container">
+        <p>&copy; 2025 Asilo Santa Monica | Tutti i diritti riservati | Made by Savatore Bonavita</p>
+        <div class="social-icons">
+          <a
+            href="https://www.instagram.com/tuoprofilo"
+            target="_blank"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href="https://www.facebook.com/tuapagina"
+            target="_blank"
+            aria-label="Facebook"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a
+            href="https://wa.me/393293086089"
+            target="_blank"
+            aria-label="WhatsApp"
+          >
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+        <a href="index.html" class="home-button">🏠 Torna alla home</a>
+      </div>
+    </footer>
+
+    <script>
+      const form = document.getElementById("multiStepForm");
+      const steps = [...form.querySelectorAll("fieldset")];
+      const indicators = document.querySelectorAll(".step");
+      const nextBtns = form.querySelectorAll(".next");
+      const prevBtns = form.querySelectorAll(".prev");
+      const successMsg = document.getElementById("successMsg");
+
+      let current = 0;
+
+      function showStep(index) {
+        steps.forEach((step, i) => {
+          step.classList.toggle("active", i === index);
+          indicators[i].classList.toggle("active", i === index);
+        });
+      }
+
+      nextBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const currentStep = steps[current];
+          if (!currentStep.checkValidity()) {
+            currentStep.reportValidity();
+            return;
+          }
+          current++;
+          showStep(current);
+        });
+      });
+
+      prevBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          current--;
+          showStep(current);
+        });
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        successMsg.style.display = "block";
+        form.reset();
+        current = 0;
+        showStep(current);
+      });
+
+      // File preview logic
+      function previewFile(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+
+        input.addEventListener("change", () => {
+          const file = input.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const url = e.target.result;
+            preview.innerHTML = file.type.includes("pdf")
+              ? `<iframe src="${url}" height="200"></iframe>`
+              : `<img src="${url}" alt="Anteprima" />`;
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      previewFile("certificato", "preview_certificato");
+      previewFile("documento", "preview_documento");
+      previewFile("vaccinazioni", "preview_vaccinazioni");
+
+      showStep(current);
+    </script>
+  </body>
+</html>
