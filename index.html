@@ -42,7 +42,7 @@
       }
 
       header {
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         padding: 10px 0;
         position: sticky;
@@ -376,6 +376,38 @@
           font-weight: bold;
         }
       }
+
+      .phone-contact {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.phone-contact a {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phone-contact a:hover {
+  color: var(--accent);
+}
+
+/* Mobile: sposta sotto il logo/menu */
+@media (max-width: 768px) {
+  .phone-contact {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -397,10 +429,26 @@
             <li><a href="#chi-siamo">Chi Siamo</a></li>
             <li><a href="#servizi">Servizi</a></li>
             <li><a href="#galleria">Galleria</a></li>
-            <li><a href="#contatti">Contatti</a></li>
-            <li><a href="iscrizione.html" class="button">Iscriviti ora</a></li>
+            <li><a href="#contatti">Contattaci</a> 
+              <li><a href="iscrizione.html" class="button">Iscriviti ora</a></li>
+
+              <a
+              href="https://wa.me/393293086089"
+              target="_blank"
+              aria-label="WhatsApp">
+
+              <i class="fab fa-whatsapp"></i></li>
+
+              <div class="phone-contact">
+                <a href="tel:+393290790103">
+                  <i class="fas fa-phone-alt"></i> +39 329 079 0103
+                </a>
+              </div>
+              
           </ul>
         </nav>
+
+       
 
         <div class="menu-toggle" id="menu-toggle">
           <i class="fas fa-bars"></i>
