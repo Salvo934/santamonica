@@ -4,185 +4,224 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Asilo Santa Monica</title>
+
+    <!-- Fonts & Icons -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <head>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      />
-    </head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 
     <style>
       :root {
-        --bg: #fdfbff;
-        --bg-light: #ffffff;
         --accent: #ff8ba7;
         --accent-dark: #f67280;
         --text: #333;
-        --font: "Quicksand", sans-serif;
-        --bubble-colors: #ff8ba7, #ffd5ec, #b5ead7, #c7ceea, #fcd5ce;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+        --background: #ffffffee;
+        --background-dark: #1e1e1e;
+        --text-dark: #eaeaea;
+        --font: "Baloo 2", cursive;
       }
 
       body {
         font-family: var(--font);
-        background: var(--bg);
         color: var(--text);
+        background: linear-gradient(
+          -45deg,
+          #ffdee9cc,
+          #b5ead7cc,
+          #c7ceea99,
+          #fcd5cecc
+        );
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        margin: 0;
         overflow-x: hidden;
-        position: relative; /* <--- già presente, ottimo */
-        z-index: 0; /* opzionale per chiarezza */
+        transition: background 0.5s, color 0.5s;
+      }
+
+      body.dark-mode {
+        background: #121212;
+        color: var(--text-dark);
+      }
+
+      body.dark-mode section,
+      body.dark-mode header,
+      body.dark-mode footer {
+        background-color: #1e1e1eaa;
+        color: var(--text-dark);
+        backdrop-filter: blur(12px);
+      }
+
+      @keyframes gradientBG {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      #tsparticles {
+        position: fixed;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
       }
 
       header {
-        background-color: #ffffff;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        padding: 10px 0;
+        background-color: var(--background);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
         position: sticky;
         top: 0;
         z-index: 1000;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.5s;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(270deg, #ff8ba7, #fcd5ce, #b5ead7, #c7ceea);
+        background-size: 600% 600%;
+        animation: glowingLine 6s ease infinite;
+      }
+
+      @keyframes glowingLine {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
       }
 
       .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         max-width: 1100px;
         margin: 0 auto;
         padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
       .logo-title {
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: #333;
+        color: inherit;
       }
 
       .logo {
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: auto;
         margin-right: 10px;
       }
 
-      .logo-title h1 {
-        font-size: 1.5rem;
-        margin: 0;
-      }
-
-      .main-nav .nav-list {
+      nav .nav-list {
         display: flex;
         list-style: none;
         gap: 20px;
-        margin: 0;
-        padding: 0;
       }
 
-      .main-nav a {
+      nav .nav-list a {
         text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        transition: color 0.3s ease;
+        font-weight: bold;
+        color: inherit;
+        position: relative;
       }
 
-      .main-nav a:hover {
-        color: #f67280;
+      nav .nav-list a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -5px;
+        transform: translateX(-50%) scaleX(0);
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #ff8ba7, #fcd5ce, #b5ead7);
+        border-radius: 2px;
+        transition: transform 0.4s ease;
       }
 
-      .hero {
-        padding: 60px 20px;
-        background: #fff6f0;
+      nav .nav-list a:hover::after,
+      nav .nav-list a.active::after {
+        transform: translateX(-50%) scaleX(1);
       }
 
-      .hero-content {
+      main {
+        max-width: 1100px;
+        margin: auto;
+        padding: 2rem;
+      }
+
+      section {
+        background: var(--background);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(10px);
+        transition: background-color 0.5s;
+      }
+
+      .hero-section {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        max-width: 1100px;
-        margin: 0 auto;
-        gap: 30px;
+        gap: 2rem;
+        padding: 3rem 1.5rem;
+        background: linear-gradient(to right, #fcd5ce, #ffdee9);
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       }
 
       .hero-text {
-        flex: 1;
-        min-width: 300px;
+       
+        flex: 1 1 400px;
+        text-align: left;
       }
 
       .hero-text h2 {
-        font-size: 2rem;
-        color: #333;
-        margin-bottom: 10px;
+        font-size: 2.75rem;
+        margin-bottom: 1rem;
+        /*color: var(--accent-dark);*/
+        color: wheat;
+        line-height: 1.2;
       }
 
       .hero-text p {
-        font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 20px;
-      }
-
-      .cta-button {
-        display: inline-block;
-        background-color: #ff8ba7;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-
-      .cta-button:hover {
-        background-color: #ff6f91;
-      }
-
-      .hero-image img {
-        width: 100%;
-        max-width: 500px;
-        border-radius: 20px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      section {
-        max-width: 960px;
-        margin: 4rem auto;
-        background: var(--bg-light);
-        padding: 3rem 2rem;
-        border-radius: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      }
-
-      section h2 {
-        font-size: 2rem;
+        font-size: 1.25rem;
         margin-bottom: 1.5rem;
+        /*color: var(--text);*/
+        color: white;
+        max-width: 600px;
       }
 
-      ul {
-        padding-left: 1.5rem;
-      }
+     
 
       .gallery {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
       }
 
       .gallery img {
         width: 100%;
-        border-radius: 1rem;
-        transition: transform 0.3s ease;
-        cursor: pointer;
-      }
-
-      .gallery img:hover {
-        transform: scale(1.05);
+        border-radius: 10px;
+        object-fit: cover;
       }
 
       form {
@@ -191,249 +230,123 @@
         gap: 1rem;
       }
 
-      input,
-      textarea {
-        padding: 1rem;
-        font-size: 1rem;
+      form input,
+      form textarea {
+        padding: 0.75rem;
         border: 1px solid #ccc;
-        border-radius: 0.75rem;
+        border-radius: 10px;
+        font-family: var(--font);
+        background: #fff;
       }
 
-      button[type="submit"] {
-        background-color: var(--accent);
-        color: white;
-        padding: 1rem 2rem;
+      form button {
+        padding: 0.75rem;
         border: none;
-        border-radius: 2rem;
-        font-weight: 600;
+        border-radius: 10px;
+        background: var(--accent);
+        color: white;
+        font-weight: bold;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      button[type="submit"]:hover {
-        background-color: var(--accent-dark);
-      }
-
-      footer {
-        background: var(--bg-light);
-        padding: 2rem;
-        text-align: center;
-        font-size: 0.9rem;
-        color: #666;
-        margin-top: 4rem;
-      }
-      .social-icons {
-        margin-top: 10px;
-      }
-
-      .social-icons a {
-        margin: 0 10px;
-        color: #444;
-        font-size: 1.5em;
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-      .social-icons a:hover {
-        color: #ff8ba7;
-      }
-
-      /* Bubbles */
-      .bubble-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: -1; /* <--- CAMBIATO da 0 a -1 */
-      }
-
-      .bubble {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.5;
-        animation: floatUp ease-in-out forwards;
       }
 
       table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 1rem;
-        font-size: 1rem;
-        background: #fff;
-        border-radius: 1rem;
-        overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-      }
-
-      thead {
-        background-color: #ffe0e9;
-        color: #333;
+        font-size: 1.1rem;
       }
 
       th,
       td {
-        padding: 1rem;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      thead {
+        background: rgba(255, 139, 167, 0.2);
+      }
+
+      tbody tr:hover {
+        background-color: rgba(255, 139, 167, 0.1);
+      }
+
+      body.dark-mode thead {
+        background: rgba(255, 139, 167, 0.1);
+      }
+
+      body.dark-mode tbody tr:hover {
+        background-color: rgba(255, 139, 167, 0.05);
+      }
+
+      footer {
+        background: var(--background);
+        padding: 1.5rem;
         text-align: center;
-        border-bottom: 1px solid #eee;
+        font-size: 0.9rem;
+        border-top: 1px solid #eee;
       }
 
-      tbody tr:last-child td {
-        border-bottom: none;
+      .social-icons a {
+       
+        margin: 0 0.5rem;
+        color: inherit;
+        font-size: 1.5rem;
       }
 
-      @media (max-width: 600px) {
-        table,
-        thead,
-        tbody,
-        th,
-        td,
-        tr {
-          font-size: 0.9rem;
-        }
+      .theme-toggle {
+        cursor: pointer;
+        font-size: 1.2rem;
       }
-
-      @keyframes floatUp {
-        0% {
-          transform: translateY(100vh) translateX(0);
-          opacity: 0;
-        }
-        50% {
-          opacity: 0.7;
-        }
-        100% {
-          transform: translateY(-10vh) translateX(40px);
-          opacity: 0;
-        }
-      }
-
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-      }
-
-      .gallery img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-      }
-
-      .gallery img:hover {
-        transform: scale(1.05);
-      }
-
-      .menu-toggle {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #333;
-}
-
-/* Responsive Navigation */
-@media (max-width: 768px) {
-  .main-nav {
-    display: none;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .main-nav.open {
-    display: block;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .nav-list li {
-    text-align: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-}
-
-
     </style>
   </head>
   <body>
-    <div class="bubble-container" id="bubble-container"></div>
+    <div id="tsparticles"></div>
 
     <header>
-      <div class="container header-container">
+      <div class="header-container">
         <a href="#" class="logo-title">
-          <img src="icona.jpg" alt="Icona Asilo Nido Santa Monica" class="logo" />
+          <img src="logo.png" alt="Logo" class="logo" />
           <h1>Asilo Santa Monica</h1>
         </a>
-    
-        <!-- NAVIGATION -->
-        <nav class="main-nav" id="main-nav">
+        <nav>
           <ul class="nav-list">
             <li><a href="#chi-siamo">Chi Siamo</a></li>
             <li><a href="#servizi">Servizi</a></li>
             <li><a href="#galleria">Galleria</a></li>
-            <li><a href="#contatti">Contattaci</a></li>
-            <li><a href="iscrizione.html" class="button">Iscriviti ora</a></li>
+            <li><a href="#contatti">Contatti</a></li>
+            <li><a href="iscrizione.html">Iscriviti ora</a></li>
+            <li>
+              <span class="theme-toggle" id="themeToggle" title="Cambia tema"
+                ><i class="fas fa-adjust"></i
+              ></span>
+            </li>
           </ul>
         </nav>
-    
-        <!-- HAMBURGER ICON -->
-        <div class="menu-toggle" id="menu-toggle">
-          <i class="fas fa-bars"></i>
-        </div>
       </div>
     </header>
-    
+
+    <!-- CONTENUTO OMESSO PER BREVITÀ -->
     <main>
       <section class="hero">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h2>Dove crescere è un’avventura</h2>
-            <p>Un ambiente sicuro, creativo e amorevole per ogni bambino</p>
-            <a href="#contatti" class="cta-button">Contattaci</a>
-          </div>
-          <div class="hero-image">
-            <img src="bambini.jpeg" alt="Bambini che giocano felici" />
-          </div>
+        <div class="hero-text">
+          <h2>Dove crescere è un’avventura</h2>
+          <p>
+            Scopri un mondo di giochi, sorrisi e apprendimento: il nostro asilo
+            è pensato per far sbocciare ogni piccolo talento in un ambiente
+            sereno e stimolante.
+          </p>
         </div>
       </section>
 
       <section id="chi-siamo">
         <h2>Chi Siamo</h2>
         <p>
-          L’Asilo Santa Monica è uno spazio educativo pensato per accompagnare i
-          bambini nei primi passi della loro crescita, favorendone lo sviluppo
-          armonico in un ambiente sereno e stimolante. Da anni accogliamo con
-          gioia i più piccoli, offrendo loro un luogo sicuro, ricco di affetto,
-          esperienze e relazioni positive. Accogliamo bambini dai 12 ai 36 mesi,
-          accompagnandoli in un percorso educativo pensato per rispondere ai
-          loro bisogni affettivi, relazionali e cognitivi. Le nostre giornate si
-          articolano tra attività ludiche, laboratori creativi, momenti di gioco
-          libero e routine pensate per dare sicurezza e continuità. Crediamo
-          fortemente nella collaborazione con le famiglie, perché la crescita
-          dei bambini è un cammino che si costruisce insieme, giorno dopo
-          giorno. Per questo promuoviamo un dialogo costante, trasparente e
-          partecipativo con i genitori. Il nostro team di educatrici qualificate
-          lavora con passione e professionalità per garantire a ogni bambino
-          un’esperienza educativa ricca, coinvolgente e costruita su misura per
-          le sue esigenze. All’Asilo Santa Monica ogni bambino è accolto,
-          ascoltato e accompagnato con cura... per crescere insieme, passo dopo
-          passo.
+          L’Asilo Santa Monica accoglie bambini dai 12 ai 36 mesi in un ambiente
+          sereno, sicuro e stimolante. Promuoviamo attività ludiche, laboratori
+          creativi, relazioni affettive positive e un forte dialogo con le
+          famiglie. Le nostre educatrici qualificate lavorano con passione per
+          ogni bambino.
         </p>
       </section>
 
@@ -454,53 +367,33 @@
           <img src="gioco.jpeg" alt="Gioco" />
           <img src="festa.jpeg" alt="Festa" />
           <img src="compiti.jpeg" alt="Scuola" />
-          <img src="gioco.jpeg" alt="Gioco" />
-          <img src="laboratorio.jpeg" alt="Laboratorio" />
         </div>
       </section>
 
       <section>
         <h2>Orari di Apertura</h2>
-        <div style="overflow-x: auto">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Giorno</th>
-                <th scope="col">Orario</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Lunedì</td>
-                <td>08:00 – 14:00</td>
-              </tr>
-              <tr>
-                <td>Martedì</td>
-                <td>08:00 – 14:00</td>
-              </tr>
-              <tr>
-                <td>Mercoledì</td>
-                <td>08:00 – 14:00</td>
-              </tr>
-              <tr>
-                <td>Giovedì</td>
-                <td>08:00 – 14:00</td>
-              </tr>
-              <tr>
-                <td>Venerdì</td>
-                <td>08:00 – 14:00</td>
-              </tr>
-              <tr>
-                <td>Sabato</td>
-                <td>08:00 – 12:00</td>
-              </tr>
-              <tr>
-                <td>Domenica</td>
-                <td>Chiuso</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Giorno</th>
+              <th>Orario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lunedì - Venerdì</td>
+              <td>08:00 – 14:00</td>
+            </tr>
+            <tr>
+              <td>Sabato</td>
+              <td>08:00 – 12:00</td>
+            </tr>
+            <tr>
+              <td>Domenica</td>
+              <td>Chiuso</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section id="contatti">
@@ -516,70 +409,72 @@
 
     <footer>
       <p>
-        &copy; 2025 Asilo Santa Monica | Tutti i diritti riservati | Made by
-        Savatore Bonavita
+        &copy; 2025 Asilo Santa Monica | Tutti i diritti riservati | Realizzato
+        da Salvatore Bonavita
       </p>
-      <div class="social-icons">
+      <nav class="social-icons">
         <a
           href="https://www.instagram.com/tuoprofilo"
           target="_blank"
           aria-label="Instagram"
-        >
-          <i class="fab fa-instagram"></i>
-        </a>
+          ><i class="fab fa-instagram"></i
+        ></a>
         <a
           href="https://www.facebook.com/tuapagina"
           target="_blank"
           aria-label="Facebook"
-        >
-          <i class="fab fa-facebook"></i>
-        </a>
+          ><i class="fab fa-facebook"></i
+        ></a>
         <a
           href="https://wa.me/393293086089"
           target="_blank"
           aria-label="WhatsApp"
-        >
-          <i class="fab fa-whatsapp"></i>
-        </a>
-      </div>
+          ><i class="fab fa-whatsapp"></i
+        ></a>
+      </nav>
     </footer>
 
     <script>
-      const bubbleContainer = document.getElementById("bubble-container");
-      const colors = ["#ff8ba7", "#ffd5ec", "#b5ead7", "#c7ceea", "#fcd5ce"];
+      tsParticles.load("tsparticles", {
+        background: { color: { value: "transparent" } },
+        fpsLimit: 60,
+        interactivity: {
+          events: { onHover: { enable: true, mode: "repulse" }, resize: true },
+          modes: { repulse: { distance: 100, duration: 0.4 } },
+        },
+        particles: {
+          color: { value: ["#ff8ba7", "#b5ead7", "#fcd5ce", "#c7ceea"] },
+          links: {
+            enable: true,
+            color: "#ccc",
+            distance: 120,
+            opacity: 0.3,
+            width: 1,
+          },
+          move: { enable: true, speed: 1, outModes: "bounce" },
+          number: { value: 50, density: { enable: true, area: 800 } },
+          opacity: { value: 0.4 },
+          shape: { type: "circle" },
+          size: { value: { min: 2, max: 6 } },
+        },
+        detectRetina: true,
+      });
 
-      function createBubble() {
-        const bubble = document.createElement("div");
-        const size = 20 + Math.random() * 40;
-        const left = Math.random() * 100;
-        const duration = 4000 + Math.random() * 4000;
-        const color = colors[Math.floor(Math.random() * colors.length)];
+      // Dark mode toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
 
-        bubble.classList.add("bubble");
-        bubble.style.width = `${size}px`;
-        bubble.style.height = `${size}px`;
-        bubble.style.left = `${left}%`;
-        bubble.style.backgroundColor = color;
-        bubble.style.animationDuration = `${duration}ms`;
-
-        bubbleContainer.appendChild(bubble);
-
-        setTimeout(() => {
-          bubble.remove();
-        }, duration);
+      if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
       }
 
-      setInterval(createBubble, 150);
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        localStorage.setItem(
+          "theme",
+          body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+      });
     </script>
-   
-   <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const mainNav = document.getElementById("main-nav");
-  
-    menuToggle.addEventListener("click", () => {
-      mainNav.classList.toggle("open");
-    });
-  </script>
-  
   </body>
 </html>
